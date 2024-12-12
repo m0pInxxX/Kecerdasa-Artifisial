@@ -1,1 +1,1 @@
-# Kecerdasa-Artifisial
+# Kecerdasan-Artifisial
