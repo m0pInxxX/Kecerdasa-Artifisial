@@ -31,6 +31,13 @@ def add_features(data):
     data['calories_log'] = np.round(np.log1p(data['calories']), 3)
     return data
 
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    non_zero_indices = y_true != 0  # Hindari pembagian dengan nol
+    y_true, y_pred = y_true[non_zero_indices], y_pred[non_zero_indices]
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+
+
 # Manual Decision Tree Implementation
 class ManualDecisionTree:
     def __init__(self, max_depth=10, min_samples_split=2):
@@ -135,8 +142,9 @@ y_train_original_scale = np.expm1(y_train)
 
 mse = round(mean_squared_error(y_train_original_scale, train_predictions_original_scale), 2)
 r2 = round(r2_score(y_train_original_scale, train_predictions_original_scale), 2)
+mape = round(mean_absolute_percentage_error(y_train_original_scale, train_predictions_original_scale), 2)
 
-print(f"Akurasi Model pada Data Latih:\nMean Squared Error: {mse:.2f}\nR² Score: {r2:.2f}\n")
+print(f"Akurasi Model pada Data Latih:\nMean Squared Error: {mse:.2f}\nR² Score: {r2:.2f}\nMAPE Score : {mape:.2f}")
 
 # Load Data Uji
 file_path_test = "Food_Dataset_test.csv"

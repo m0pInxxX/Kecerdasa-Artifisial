@@ -56,6 +56,10 @@ def r2_score(y_true, y_pred):
     ss_residual = np.sum((y_true - y_pred) ** 2)
     return 1 - (ss_residual / ss_total)
 
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+
 # Load dan train Model
 file_path_train = "Food_Dataset_train.csv"
 data_train = pd.read_csv(file_path_train)
@@ -120,8 +124,9 @@ y_train_original = np.expm1(y_train)
 mae = mean_absolute_error(y_train_original, y_train_pred_original)
 mse = mean_squared_error(y_train_original, y_train_pred_original)
 r2 = r2_score(y_train_original, y_train_pred_original)
+mape = mean_absolute_percentage_error(y_train_original, y_train_pred_original)
 
-print(f"Akurasi Model Regresi Hybrid pada Data Latih:\n MAE: {mae:.2f}, MSE: {mse:.2f}, R^2: {r2:.2f}\n")
+print(f"Akurasi Model Regresi Hybrid pada Data Latih:\n MAE: {mae:.2f}, MSE: {mse:.2f}, R^2: {r2:.2f}, MAPE : {mape:.2f}\n")
 
 # Prediksi pada Data Uji
 file_path_test = "Food_Dataset_test.csv"
